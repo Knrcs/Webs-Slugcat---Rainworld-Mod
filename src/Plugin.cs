@@ -12,37 +12,25 @@ namespace SlugTemplate
         private const string MOD_ID = "Kezia-Knrc_Webs";
 
         public static readonly PlayerFeature<float> SuperJump = PlayerFloat("Webs/super_jump");
-        public static readonly PlayerFeature<bool> ExplodeOnDeath = PlayerBool("Webs/explode_on_death");
-        public static readonly GameFeature<float> MeanLizards = GameFloat("Webs/mean_lizards");
-
         public static readonly PlayerFeature<bool> SpiderSpit = PlayerBool("Webs/spider_spit");
+        public static readonly PlayerFeature<float> CrawlSpeed = PlayerFloat("Webs/crawl_speed");
 
+
+        private float crawlSpeed = 3f;
 
         // Add hooks
         public void OnEnable()
         {
             On.RainWorld.OnModsInit += Extras.WrapInit(LoadResources);
 
-            // Put your custom hooks here!
+            //Hooks
             On.Player.Jump += Player_Jump;
-            On.Player.Die += Player_Die;
-            On.Lizard.ctor += Lizard_ctor;
+            On.Player.UpdateBodyMode += Player_UpdateBodyMode; //For Movement (crawl, move, stand)
         }
         
         // Load any resources, such as sprites or sounds
         private void LoadResources(RainWorld rainWorld)
         {
-        }
-
-        // Implement MeanLizards
-        private void Lizard_ctor(On.Lizard.orig_ctor orig, Lizard self, AbstractCreature abstractCreature, World world)
-        {
-            orig(self, abstractCreature, world);
-
-            if(MeanLizards.TryGet(world.game, out float meanness))
-            {
-                self.spawnDataEvil = Mathf.Min(self.spawnDataEvil, meanness);
-            }
         }
 
 
@@ -57,30 +45,32 @@ namespace SlugTemplate
             }
         }
 
-        // Implement ExlodeOnDeath
-        private void Player_Die(On.Player.orig_Die orig, Player self)
+        private void Player_UpdateBodyMode(On.Player.orig_UpdateBodyMode orig, Player self)
         {
-            bool wasDead = self.dead;
-
             orig(self);
+            SpiderSuperCrawl(self);// effecting movement speed
+        }
 
-            if(!wasDead && self.dead
-                && ExplodeOnDeath.TryGet(self, out bool explode)
-                && explode)
+        public void SpiderSuperCrawl(Player self)// Changing movment speeds with crawling or walking
+        {
+            if (CrawlSpeed.TryGet(self, out var power))
             {
-                // Adapted from ScavengerBomb.Explode
-                var room = self.room;
-                var pos = self.mainBodyChunk.pos;
-                var color = self.ShortCutColor();
-                room.AddObject(new Explosion(room, self, pos, 7, 250f, 6.2f, 2f, 280f, 0.25f, self, 0.7f, 160f, 1f));
-                room.AddObject(new Explosion.ExplosionLight(pos, 280f, 1f, 7, color));
-                room.AddObject(new Explosion.ExplosionLight(pos, 230f, 1f, 3, new Color(1f, 1f, 1f)));
-                room.AddObject(new ExplosionSpikes(room, pos, 14, 30f, 9f, 7f, 170f, color));
-                room.AddObject(new ShockWave(pos, 330f, 0.045f, 5, false));
-
-                room.ScreenMovement(pos, default, 1.3f);
-                room.PlaySound(SoundID.Bomb_Explode, pos);
-                room.InGameNoise(new Noise.InGameNoise(pos, 9000f, self, 1f));
+                if (self.bodyMode == Player.BodyModeIndex.Crawl)
+                {
+                    self.dynamicRunSpeed[0] *= power;
+                    self.dynamicRunSpeed[1] *= power;
+                }
+                //if (self.bodyMode == Player.BodyModeIndex.Default)
+                //{
+                //    self.dynamicRunSpeed[0] *= 1.5f;
+                //    self.dynamicRunSpeed[1] *= 1.5f;
+                //}
+                ////if (self.standing)
+                //if (self.bodyMode == Player.BodyModeIndex.Stand)
+                //{
+                //    self.dynamicRunSpeed[0] *= 0.7f;
+                //    self.dynamicRunSpeed[1] *= 0.7f;
+                //}
             }
         }
     }

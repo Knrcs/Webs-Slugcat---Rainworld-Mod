@@ -14,13 +14,16 @@
 				"story": "4C54C3"
 			}
 		],
-		"Webs/super_jump": 0.5,
+		"Webs/super_jump": 0.25,
+		"Webs/crawl_speed": 3,
 		"can_maul": true,
 		"maul_damage": 1.25,
+		"walk_speed": [1.2, 0.9],
+		"tunnel_speed": [ 3, 2.5 ],
+		"climb_speed":  [2.5, 2.1],
+		"throw_skill": 0,
 		"the_mark": true,
 		"select_menu_scene": "Slugcat_Webs",
-		"select_menu_scene_ascended": "Ghost_Webs",
-		"walk_speed": 1.2,
-		"throw_skill": 0
+		"select_menu_scene_ascended": "Ghost_Webs"
 	}
 }
