@@ -1,0 +1,30 @@
+{
+	"id": "Slugcat_Webs",
+	"scene_folder": "scenes/slugcat - webs",
+	"images": [
+
+		{
+			"name": "Grass 02",
+			"pos": [ 456, 243 ],
+			"depth": 2.6,
+			"shader": "Basic"
+		},
+		{
+			"name": "Slugcat",
+			"pos": [ 445, 247 ],
+			"depth": 2.8,
+			"shader": "Basic"
+		},
+		{
+			"name": "Grass 01",
+			"pos": [ 445, 237 ],
+			"depth": 1.8,
+			"shader": "Basic"
+		}
+	],
+	"idle_depths": [ 2.8 ],
+	"glow_pos": [688, 484],
+	"mark_pos": [689, 583],
+	"select_menu_pos": [0, 0],
+	"slugcat_depth": 2.8
+}

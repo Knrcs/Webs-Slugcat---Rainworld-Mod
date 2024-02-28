@@ -1,0 +1,13 @@
+{
+	"id": "Webs",
+	"name": "Webs",
+	"description": "A lost soul, weak with spears, but strong with teeth. It must go to the farest East.",
+	"features": {
+		"color": "FFFFFF",
+		"Webs/super_jump": 0.5,
+		"Webs/explode_on_death": true,
+		"select_menu_scene": "Slugcat_Webs",
+		"select_menu_scene_ascended": "Ghost_Webs",
+		"Webs/mean_lizards": 0.8
+	}
+}
