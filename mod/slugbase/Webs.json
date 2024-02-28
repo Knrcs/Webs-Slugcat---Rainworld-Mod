@@ -1,13 +1,26 @@
 {
 	"id": "Webs",
 	"name": "Webs",
-	"description": "A lost soul, weak with spears, but strong with teeth. It must go to the farest East.",
+	"description": "A lost soul, weak with spears, but strong with teeth.<LINE>It must go to the farest East.",
 	"features": {
-		"color": "FFFFFF",
+		"color": "DFE5F7",
+		"custom_colors": [
+			{
+				"name": "Body",
+				"story": "DFE5F7"
+			},
+			{
+				"name": "Eyes",
+				"story": "4C54C3"
+			}
+		],
 		"Webs/super_jump": 0.5,
-		"Webs/explode_on_death": true,
+		"can_maul": true,
+		"maul_damage": 1.25,
+		"the_mark": true,
 		"select_menu_scene": "Slugcat_Webs",
 		"select_menu_scene_ascended": "Ghost_Webs",
-		"Webs/mean_lizards": 0.8
+		"walk_speed": 1.2,
+		"throw_skill": 0
 	}
 }

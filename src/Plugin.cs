@@ -6,7 +6,7 @@ using static SlugBase.Features.FeatureTypes;
 
 namespace SlugTemplate
 {
-    [BepInPlugin(MOD_ID, "Webs Slugcat", "0.1.0")]
+    [BepInPlugin(MOD_ID, "Webs Slugcat", "0.1")]
     class Plugin : BaseUnityPlugin
     {
         private const string MOD_ID = "Kezia-Knrc_Webs";
@@ -14,6 +14,8 @@ namespace SlugTemplate
         public static readonly PlayerFeature<float> SuperJump = PlayerFloat("Webs/super_jump");
         public static readonly PlayerFeature<bool> ExplodeOnDeath = PlayerBool("Webs/explode_on_death");
         public static readonly GameFeature<float> MeanLizards = GameFloat("Webs/mean_lizards");
+
+        public static readonly PlayerFeature<bool> SpiderSpit = PlayerBool("Webs/spider_spit");
 
 
         // Add hooks
