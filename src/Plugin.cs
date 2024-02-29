@@ -15,7 +15,6 @@ namespace SlugTemplate
         public static readonly PlayerFeature<bool> SpiderSpit = PlayerBool("Webs/spider_spit");
         public static readonly PlayerFeature<float> CrawlSpeed = PlayerFloat("Webs/crawl_speed");
 
-
         private float crawlSpeed = 3f;
 
         // Add hooks

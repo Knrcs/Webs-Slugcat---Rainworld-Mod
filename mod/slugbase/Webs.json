@@ -12,6 +12,10 @@
 			{
 				"name": "Eyes",
 				"story": "4C54C3"
+			},
+			{
+				"name": "Gills",
+				"story": "DFE5F7"
 			}
 		],
 		"Webs/super_jump": 0.25,
