@@ -11,7 +11,7 @@
 			},
 			{
 				"name": "Eyes",
-				"story": "4C54C3"
+				"story": "FFFFFF"
 			}
 		],
 		"Webs/super_jump": 0.25,
@@ -31,6 +31,7 @@
 		"climb_speed":  [2.5, 2.1],
 		"throw_skill": 0,
 		"the_mark": true,
+		"guide_overseer": 1,
 		"select_menu_scene": "Slugcat_Webs",
 		"select_menu_scene_ascended": "Ghost_Webs"
 	}

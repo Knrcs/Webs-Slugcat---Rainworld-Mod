@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Reflection;
 using BepInEx;
 using UnityEngine;
 using SlugBase;
@@ -8,14 +10,14 @@ using SlugBase.Features;
 using static SlugBase.Features.FeatureTypes;
 using DressMySlugcat;
 using On;
-using System.Runtime.CompilerServices;
+using MonoMod.RuntimeDetour;
 
 
 namespace Webs
 {
     [BepInDependency("slime-cubed.slugbase")]
     [BepInDependency("dressmyslugcat", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("Kezia-Knrc_Webs", "Webs Slugcat", "0.1.3")]
+    [BepInPlugin("Kezia-Knrc_Webs", "Webs Slugcat", "0.1.4")]
     class Plugin : BaseUnityPlugin
     {
         public static readonly PlayerFeature<float> SuperJump = PlayerFloat("Webs/super_jump");
@@ -46,6 +48,19 @@ namespace Webs
             }
             On.RainWorld.PostModsInit += RainWorld_PostModsInit;
 
+            Hook overseercolorHook = new Hook(typeof(OverseerGraphics).GetProperty("MainColor", BindingFlags.Instance | BindingFlags.Public).GetGetMethod(), OverseerGraphics_MainColor_get);
+        }
+
+        //Change Overseer Color
+        public delegate Color orig_OverseerMainColor(OverseerGraphics self);
+        public static Color OverseerGraphics_MainColor_get(orig_OverseerMainColor orig, OverseerGraphics self)
+        {
+            Color res = orig(self); // REQUIRED or else default overseers won't have colors
+            if ((self.overseer.abstractCreature.abstractAI as OverseerAbstractAI).ownerIterator == 1) //Overseer ID 
+            {
+                res = new Color(0.298f, 0.329f, 0.765f); //Color of the Overseer
+            }
+            return res;
         }
 
         // Load any resources, such as sprites or sounds
