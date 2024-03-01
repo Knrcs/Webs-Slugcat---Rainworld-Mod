@@ -1,0 +1,20 @@
+{"frames": {
+
+"spiderlegs.png":
+{
+	"frame": {"x":2,"y":2,"w":52,"h":244},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":52,"h":244},
+	"sourceSize": {"w":52,"h":244}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "spiderlegs.txt.png",
+	"format": "RGBA8888",
+	"size": {"w":56,"h":248},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:d372958d5942bb3b5348adf94dcd3474:3672939c8bf3d16628068e0419dc65ef:f1e2087b4e40d4b005f617e85c3b0204$"
+}
+}

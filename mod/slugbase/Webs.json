@@ -12,17 +12,21 @@
 			{
 				"name": "Eyes",
 				"story": "4C54C3"
-			},
-			{
-				"name": "Gills",
-				"story": "DFE5F7"
 			}
 		],
 		"Webs/super_jump": 0.25,
 		"Webs/crawl_speed": 3,
+		"food_min": 7,
+		"food_max": 8,
+		"diet": {
+			"base": "Red",
+			"corpses": 1,
+			"meat": 1,
+			"plants": -1
+		},
 		"can_maul": true,
 		"maul_damage": 1.25,
-		"walk_speed": [1.2, 0.9],
+		"walk_speed": [1.1, 0.8],
 		"tunnel_speed": [ 3, 2.5 ],
 		"climb_speed":  [2.5, 2.1],
 		"throw_skill": 0,

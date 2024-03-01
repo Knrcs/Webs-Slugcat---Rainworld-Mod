@@ -11,6 +11,12 @@
         </Reference>
     </ItemGroup>
     
+    <ItemGroup>
+      <Reference Include="DressMySlugcat">
+        <HintPath>D:\Games\SteamLibrary\steamapps\workshop\content\312520\2948971756\plugins\DressMySlugcat.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+    
     <Target Name="GenerateMod" AfterTargets="PostBuildEvent">
 		<ItemGroup>
 			<RemovePlugins Include="../mod/plugins/*.dll" />
