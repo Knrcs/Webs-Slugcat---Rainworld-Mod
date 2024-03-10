@@ -1,0 +1,31 @@
+{
+	"id": "Slugcat_WebsSleep",
+	"scene_folder": "scenes/slugcat - webs_sleep",
+	"images": [
+		{
+			"name": "Flat",
+			"pos": [ 0, 0 ],
+			"depth": -1.0,
+			"flatmode":  true},
+		{
+			"name": "GrassBG",
+			"pos": [ 672, 236 ],
+			"depth": 4.6,
+			"shader": "Basic"
+		},
+		{
+			"name": "Webs_sleepy_eepy",
+			"pos": [ 672, 236 ],
+			"depth": 3,
+			"shader": "Basic"
+		},
+		{
+			"name": "GrassFG",
+			"pos": [ 685, 220 ],
+			"depth": 1.8,
+			"shader": "Basic"
+		}
+	],
+	"idle_depths": [ 2.9 ],
+	"sleep scene_depth": 3.0
+}

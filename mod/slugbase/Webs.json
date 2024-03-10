@@ -31,8 +31,11 @@
 		"climb_speed":  [2.5, 2.1],
 		"throw_skill": 0,
 		"the_mark": true,
+		"world_state": "Rivulet",
+		"timeline_after": "Rivulet",
 		"guide_overseer": 1,
 		"select_menu_scene": "Slugcat_Webs",
-		"select_menu_scene_ascended": "Ghost_Webs"
+		"select_menu_scene_ascended": "Ghost_Webs",
+		"sleep_scene": "Slugcat_WebsSleep"
 	}
 }
