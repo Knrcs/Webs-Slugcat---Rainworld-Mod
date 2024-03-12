@@ -14,28 +14,30 @@
 				"story": "FFFFFF"
 			}
 		],
+		"select_menu_scene": "Webs_Menu",
+		"select_menu_scene_ascended": "Webs_Ascention",
+		"sleep_scene": "Webs_Sleep",
+
 		"Webs/super_jump": 0.25,
 		"Webs/crawl_speed": 3,
+		"the_mark": true,
+
 		"food_min": 7,
 		"food_max": 8,
+		"can_maul": true,
+		"maul_damage": 1.25,
 		"diet": {
 			"base": "Red",
 			"corpses": 1,
 			"meat": 1,
 			"plants": -1
 		},
-		"can_maul": true,
-		"maul_damage": 1.25,
-		"walk_speed": [1.1, 0.8],
+		"walk_speed": [ 1.1, 0.8 ],
 		"tunnel_speed": [ 3, 2.5 ],
-		"climb_speed":  [2.5, 2.1],
+		"climb_speed": [ 2.5, 2.1 ],
 		"throw_skill": 0,
-		"the_mark": true,
 		"world_state": "Rivulet",
 		"timeline_after": "Rivulet",
-		"guide_overseer": 1,
-		"select_menu_scene": "Slugcat_Webs",
-		"select_menu_scene_ascended": "Ghost_Webs",
-		"sleep_scene": "Slugcat_WebsSleep"
+		"guide_overseer": 1
 	}
 }
