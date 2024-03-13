@@ -1,6 +1,6 @@
 {
-  "id": "Webs_Sleep",
-  "scene_folder": "scenes/webs_sleep",
+  "id": "Webs_DedV2",
+  "scene_folder": "scenes/webs_dedV2",
   "images": [
     {
       "name": "Flat",
@@ -9,7 +9,7 @@
       "flatmode": true
     },
     {
-      "name": "Iterator",
+      "name": "BugFix",
       "pos": [ 0, 0 ],
       "depth": 4.0,
       "shader": "Basic"
@@ -33,5 +33,5 @@
       "shader": "Basic"
     }
   ],
-  "idle_depths": [ 2.6 ]
+  "idle_depths": [ 2.6 ],
 }

@@ -14,9 +14,10 @@
 				"story": "FFFFFF"
 			}
 		],
-		"select_menu_scene": "Webs_Menu",
+		"select_menu_scene": "Webs_MenuV2",
 		"select_menu_scene_ascended": "Webs_Ascention",
 		"sleep_scene": "Webs_Sleep",
+		"death_scene": "Webs_DedV2",
 
 		"Webs/super_jump": 0.25,
 		"Webs/crawl_speed": 3,
