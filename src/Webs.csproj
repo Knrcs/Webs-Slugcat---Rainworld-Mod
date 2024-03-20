@@ -15,6 +15,12 @@
       <Reference Include="DressMySlugcat">
         <HintPath>D:\Games\SteamLibrary\steamapps\workshop\content\312520\2948971756\plugins\DressMySlugcat.dll</HintPath>
       </Reference>
+      <Reference Include="Fisobs">
+        <HintPath>D:\Games\SteamLibrary\steamapps\workshop\content\312520\2920541687\plugins\Fisobs.dll</HintPath>
+      </Reference>
+      <Reference Include="IteratorKit">
+        <HintPath>D:\Games\SteamLibrary\steamapps\workshop\content\312520\3072891344\plugins\IteratorKit.dll</HintPath>
+      </Reference>
     </ItemGroup>
     
     <Target Name="GenerateMod" AfterTargets="PostBuildEvent">
