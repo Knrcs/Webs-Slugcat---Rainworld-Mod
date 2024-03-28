@@ -1,7 +1,7 @@
 ﻿{
 	"id": "Kezia-Knrc_Webs",
 	"name": "Webs Slugcat",
-	"version": "0.1.5.1",
+	"version": "0.1.6",
 	"authors": "Kézia and Knrc",
 	"description": "A mod that adds a new Slugcat called Webs into the game",
 	"requirements": [ "slime-cubed.slugbase", "dressmyslugcat", "crs"],

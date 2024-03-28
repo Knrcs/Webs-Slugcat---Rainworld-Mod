@@ -18,7 +18,7 @@ namespace Webs
 {
     [BepInDependency("slime-cubed.slugbase")]
     [BepInDependency("dressmyslugcat", BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInPlugin("Kezia-Knrc_Webs", "Webs Slugcat", "0.1.5.1")]
+    [BepInPlugin("Kezia-Knrc_Webs", "Webs Slugcat", "0.1.6")]
     class Plugin : BaseUnityPlugin
     {
         public static readonly PlayerFeature<float> SuperJump = PlayerFloat("Webs/super_jump");
