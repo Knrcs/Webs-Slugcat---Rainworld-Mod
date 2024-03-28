@@ -25,7 +25,7 @@ namespace Webs
         public static readonly PlayerFeature<bool> SpiderSpit = PlayerBool("Webs/spider_spit");
         public static readonly PlayerFeature<float> CrawlSpeed = PlayerFloat("Webs/crawl_speed");
         public static bool IsPostInit;
-        public string atlasPath = "atlases/spiderlegs";
+        // public string atlasPath = "atlases/spiderlegs";
 
         #region hooks
         public void OnEnable()
@@ -159,8 +159,6 @@ namespace Webs
         //{
 
         //}
-
-        //--Implement SuperJump
 
 
         
