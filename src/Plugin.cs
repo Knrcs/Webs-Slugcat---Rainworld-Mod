@@ -11,6 +11,7 @@ using static SlugBase.Features.FeatureTypes;
 using DressMySlugcat;
 using On;
 using MonoMod.RuntimeDetour;
+using Webs.WebsThings;
 
 
 namespace Webs
@@ -23,57 +24,25 @@ namespace Webs
         public static readonly PlayerFeature<float> SuperJump = PlayerFloat("Webs/super_jump");
         public static readonly PlayerFeature<bool> SpiderSpit = PlayerBool("Webs/spider_spit");
         public static readonly PlayerFeature<float> CrawlSpeed = PlayerFloat("Webs/crawl_speed");
-        //TODO: Red Spider Spit
-        //Maximum Ammount of SpitAmmo the Player can have
-        private int maxSpiderSpitCapacity = 4;
-
-        //Capacity the player currently have
-        private int playerA_SpiderSpitCapacity = 4;
-        private int playerB_SpiderSpitCapacity = 4;
-        private int playerC_SpiderSpitCapacity = 4;
-        private int playerD_SpiderSpitCapacity = 4;
-
-
-
-        //Time until Spit Regenerates
-        private float resetCooldown = 5f;
-        private float playerA_spitCooldown = 5f;
-        private float playerB_spitCooldown = 5f;
-        private float playerC_spitCooldown = 5f;
-        private float playerD_spitCooldown = 5f;
-
-        //Checks if player can Spit or not
-        private bool playerA_canSpit; 
-        private bool playerB_canSpit; 
-        private bool playerC_canSpit; 
-        private bool playerD_canSpit; 
-
-
-        //TODO: Climb on Walls
-        //TODO: Climb on Ceilings
-
-
         public static bool IsPostInit;
         public string atlasPath = "atlases/spiderlegs";
 
-
-
-        // Add hooks
+        #region hooks
         public void OnEnable()
         {
             On.RainWorld.OnModsInit += Extras.WrapInit(LoadResources);
-
             //Hooks
-            On.Player.Jump += Player_Jump;
-            On.Player.GrabUpdate += GrabUpdate;
+            WebsJump.Apply();
+            WebsSpit.Apply();
+            WebsCrawl.Apply();
             On.PlayerState.ctor += PlayerState_ctor;
-            On.Player.UpdateBodyMode += Player_UpdateBodyMode; //For Movement (crawl, move, stand)
-
-            if (ModManager.ActiveMods.Any(mod => mod.id == "dressmyslugcat")) 
+            if (ModManager.ActiveMods.Any(mod => mod.id == "dressmyslugcat"))
             {
                 SetupDMSSprites();
             }
             On.RainWorld.PostModsInit += RainWorld_PostModsInit;
+
+
 
             Hook overseercolorHook = new Hook(typeof(OverseerGraphics).GetProperty("MainColor", BindingFlags.Instance | BindingFlags.Public).GetGetMethod(), OverseerGraphics_MainColor_get);
         }
@@ -120,7 +89,7 @@ namespace Webs
                     SetupDMSSprites();
                 }
 
-                Debug.Log($"Plugin dressmyslugcat.Kezia-Knrc_Webs is loaded!");
+                Debug.Log($"Plugin Kezia-Knrc_Webs is loaded!");
             }
             catch (Exception ex)
             {
@@ -183,232 +152,26 @@ namespace Webs
         //--Setup Spiderlegs
         //public void InitiateSprites(On.PlayerGraphics.orig_InitiateSprites orig, PlayerGraphics self, RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam)
         //{
-     
+
         //}
-        
+
         //public void DrawSprites(On.PlayerGraphics.orig_DrawSprites orig, PlayerGraphics self, RoomCamera.SpriteLeaser sLeaser, RoomCamera rCam, float timeStacker, Vector2 camPos) 
         //{
-         
+
         //}
 
         //--Implement SuperJump
-        private void Player_Jump(On.Player.orig_Jump orig, Player self)
-        {
-            orig(self);
-
-            if (SuperJump.TryGet(self, out var power))
-            {
-                self.jumpBoost *= 1f + power;
-            }
-        }
-
-        private void Player_UpdateBodyMode(On.Player.orig_UpdateBodyMode orig, Player self)
-        {
-            orig(self);
-            SpiderSuperCrawl(self);//effecting movement speed
-        }
-
-        public void SpiderSuperCrawl(Player self)// Changing movment speeds with crawling or walking
-        {
-            if (CrawlSpeed.TryGet(self, out var power))
-            {
-                if (self.bodyMode == Player.BodyModeIndex.Crawl)
-                {
-                    self.dynamicRunSpeed[0] *= power;
-                    self.dynamicRunSpeed[1] *= power;
-                }
-                //if (self.bodyMode == Player.BodyModeIndex.Default)
-                //{
-                //    self.dynamicRunSpeed[0] *= 1.5f;
-                //    self.dynamicRunSpeed[1] *= 1.5f;
-                //}
-                ////if (self.standing)
-                //if (self.bodyMode == Player.BodyModeIndex.Stand)
-                //{
-                //    self.dynamicRunSpeed[0] *= 0.7f;
-                //    self.dynamicRunSpeed[1] *= 0.7f;
-                //}
-            }
-        }
-
-        private void GrabUpdate(On.Player.orig_GrabUpdate orig, Player self, bool eu) // Player grab update check
-        {
-            //THIS METHOD IS RESPONSIBLE FOR THROWING HELD OBJECTS, SO WE WANT YOUR THING TO HAPPEN RIGHT BEFORE ALL THAT STUFF HAPPENS
-            SlugcatSpit(self); 
-            orig(self, eu); 
-        }
-
-        public void throwButtonCheckFalse(Player self)
-        {
-            if (self.playerState.playerNumber == 0) { playerA_canSpit = false; }
-            if (self.playerState.playerNumber == 1) { playerB_canSpit = false; }
-            if (self.playerState.playerNumber == 2) { playerC_canSpit = false; }
-            if (self.playerState.playerNumber >= 3) { playerD_canSpit = false; }
-
-        }
-
-        public void throwButtonPressed(Player self)
-        {
-            if (playerA_canSpit && self.playerState.playerNumber == 0)
-            {
-                if (playerA_SpiderSpitCapacity == 0)
-                {
-                    playerA_canSpit = false;
-                }
-                else
-                {
-                    SpitProjectile(self);
-                    playerA_SpiderSpitCapacity--;
-                    playerA_canSpit = false;
-                    Debug.Log("Spit happened");
-                }
-            }
-
-            if (playerB_canSpit && self.playerState.playerNumber == 0)
-            {
-                if (playerB_SpiderSpitCapacity == 0)
-                {
-                    playerB_canSpit = false;
-                }
-                else
-                {
-                    SpitProjectile(self);
-                    playerB_SpiderSpitCapacity--;
-                    playerB_canSpit = false;
-                }
-            }
-
-            if (playerC_canSpit && self.playerState.playerNumber == 0)
-            {
-                if (playerC_SpiderSpitCapacity == 0)
-                {
-                    playerC_canSpit = false;
-                }
-                else
-                {
-                    SpitProjectile(self);
-                    playerC_SpiderSpitCapacity--;
-                    playerC_canSpit = false;
-                }
-            }
-
-            if (playerD_canSpit && self.playerState.playerNumber == 0)
-            {
-                if (playerD_SpiderSpitCapacity == 0)
-                {
-                    playerD_canSpit = false;
-                }
-                else
-                {
-                    SpitProjectile(self);
-                    playerD_SpiderSpitCapacity--;
-                    playerD_canSpit = false;
-                    
-                }
-            }
-        }
 
 
-        public void SpitRecharge(Player self) 
-        {
-            if(playerA_SpiderSpitCapacity < maxSpiderSpitCapacity && self.playerState.playerNumber == 0)
-            {
-                playerA_spitCooldown -= Time.deltaTime;
-                    if(playerA_spitCooldown <= 0)
-                    {   
-                        playerA_SpiderSpitCapacity++;
-                        playerA_spitCooldown = resetCooldown;
-                        Debug.Log("Reload Spit");
-                }
-            }
-            if (playerB_SpiderSpitCapacity < maxSpiderSpitCapacity && self.playerState.playerNumber == 1)
-            {
-                playerB_spitCooldown -= Time.deltaTime;
-                if (playerB_spitCooldown <= 0)
-                {
-                    playerB_SpiderSpitCapacity++;
-                    playerB_spitCooldown = resetCooldown;
-                }
-            }
-            if (playerC_SpiderSpitCapacity < maxSpiderSpitCapacity && self.playerState.playerNumber == 2)
-            {
-                playerC_spitCooldown -= Time.deltaTime;
-                if (playerC_spitCooldown <= 0)
-                {
-                    playerC_SpiderSpitCapacity++;
-                    playerC_spitCooldown = resetCooldown;
-                }
-            }
-            if (playerD_SpiderSpitCapacity < maxSpiderSpitCapacity && self.playerState.playerNumber >= 3)
-            {
-                playerD_spitCooldown -= Time.deltaTime;
-                if (playerD_spitCooldown <= 0)
-                {
-                    playerD_SpiderSpitCapacity++;
-                    playerD_spitCooldown = resetCooldown;
-                }
-            }
-        }
-
-        public void CanSpitCheck(Player self)
-        {
-            if (playerA_SpiderSpitCapacity > 0 && self.playerState.playerNumber == 0)
-            {
-                playerA_canSpit = true;
-                Debug.Log("Can Spit");
-            }
-            if (playerB_SpiderSpitCapacity > 0 && self.playerState.playerNumber == 1)
-            {
-                playerB_canSpit = true;
-            }
-            if (playerC_SpiderSpitCapacity > 0 && self.playerState.playerNumber == 2)
-            {
-                playerC_canSpit = true;
-            }
-            if (playerD_SpiderSpitCapacity > 0 && self.playerState.playerNumber >= 3)
-            {
-                playerD_canSpit = true;
-            }
-        }
-
-        public void SlugcatSpit(Player self)
-        {
-            if (SpiderSpit.TryGet(self, out var spiderSpit))
-            {
-                if ((self.grasps[0] != null || self.grasps[1] != null) && self.input[0].thrw)
-                {
-                    throwButtonCheckFalse(self);
-                    Debug.Log("Spit");
-                }
-                if (!self.input[1].thrw && self.input[0].thrw)
-                {
-                    throwButtonPressed(self);
-                }
-            }
-            SpitRecharge(self);
-            if (!self.input[0].thrw)
-            {
-                CanSpitCheck(self);
-            }
-        }
-
-        public void SpitProjectile(Player self)
-        {
-            AbstractPhysicalObject abstractPhysicalObject = new AbstractPhysicalObject(self.room.world, AbstractPhysicalObject.AbstractObjectType.DartMaggot, null, self.abstractCreature.pos, self.room.game.GetNewID());
-            abstractPhysicalObject.RealizeInRoom();
-            if (self.input[0].x == 0 && self.input[0].y == 0) //checking if using direction axis
-            {
-                (abstractPhysicalObject.realizedObject as DartMaggot).Shoot(self.mainBodyChunk.pos, new(self.ThrowDirection, 0), self); //shooting dart and if not moving uses throw direction
-            }
-            else
-            {
-                (abstractPhysicalObject.realizedObject as DartMaggot).Shoot(self.mainBodyChunk.pos, new(self.input[0].x, self.input[0].y), self); //shoting dart direction to movement inputs
-            }
-            self.room.PlaySound(SoundID.Big_Spider_Spit, self.mainBodyChunk);
-            Debug.Log("Projectile Spit");
-        }
+        
     }
+    #endregion
 }
+
+
+
+
+
 
 //Credits to the Spider Spit Code function
 //RezilloRyker 
