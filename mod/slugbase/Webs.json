@@ -21,7 +21,7 @@
 
 		"Webs/super_jump": 0.25,
 		"Webs/crawl_speed": 3,
-		"Webs/spider_spit": true,
+		"Webs/spider_spit": false,
 		"the_mark": true,
 
 		"food_min": 7,

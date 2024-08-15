@@ -2,15 +2,14 @@
   "Title": "Webs Slugcat",
   "Description": "A mod that adds a new Slugcat called Webs into the game",
   "ID": "Kezia-Knrc_Webs",
-  "Version": "0.1.6",
+  "Version": "0.2",
   "TargetGameVersion": "v1.9.06",
-  "Requirements": "slime-cubed.slugbase,dressmyslugcat",
-  "RequirementNames": "SlugBase,Dress My Slugcat",
+  "Requirements": "slime-cubed.slugbase,dressmyslugcat,crs,iteratorKit",
+  "RequirementNames": "SlugBase,Dress My Slugcat,Custom Region Support, Iterator Kit",
   "Authors": "K\u00E9zia and Knrc",
   "Visibility": "Unlisted",
   "Tags": [
     "Campaigns",
-    "Creatures",
     "Custom Slugcat"
   ],
   "WorkshopID": 3169903175,

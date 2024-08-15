@@ -1,0 +1,13 @@
+Template: NONE
+DangerType: None
+CeilingDrips: 0.4667912
+RainIntensity: 0.3813407
+RumbleIntensity: 0.3736071
+Clouds: 0
+Grime: 0
+WaterReflectionAlpha: 0.590138
+Palette: 33
+EffectColorA: 0
+EffectColorB: 0
+Effects: Brightness-0.8623868-20-20, Contrast-0.9347826-25.73126-74.8, ZeroG-0.6299585-296.0854-41.37778, Bloom-0.562772-301.7771-101.8222, ProjectedScanLines-1-850.574-395.3333, 
+MorePalette0: 5, 0.08506576
